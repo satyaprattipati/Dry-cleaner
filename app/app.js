@@ -23,9 +23,23 @@ app.get('/', function (req, res) {
     res.render('login');
 });
 
-app.get('/login', function (req, res) {
-    res.send('hello');
+app.post('/login', async function (req, res) {
+    const { username, password } = req.body;
+    try {
+        const sql = 'SELECT * FROM Users WHERE username = ? AND password = ?';
+        const [user] = await db.query(sql, [username, password]);
+        if (user) {
+            res.send(`Welcome, ${username}!`);
+        } else {
+            res.status(401).send('Invalid username or password');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
+
+
 app.get('/register', function (req, res) {
     res.render('register');
 });
