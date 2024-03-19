@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Registration Form
+    link(rel="stylesheet", href="styles.css")
+    style.
+      
+  body
+    form(action="/register-page", method="POST")
+      h2 Registration
+      .form-group
+        label(for="username") Username:
+        input(type="text", id="username", name="username", placeholder="Enter your username", required)
+      .form-group
+        label(for="email") Email:
+        input(type="email", id="email", name="email", placeholder="Enter your email", required)
+      .form-group
+        label(for="password") Password:
+        input(type="password", id="password", name="password", placeholder="Enter your password", required)
+      .form-group
+        label(for="confirm_password") Confirm Password:
+        input(type="password", id="confirm_password", name="confirm_password", placeholder="Confirm your password", required)
+      .form-group
+        label(for="fullname") Full Name:
+        input(type="text", id="fullname", name="fullname", placeholder="Enter your full name", required)
+      .form-group
+        label(for="dob") Date of Birth:
+        input(type="date", id="dob", name="dob", required)
+      .form-group
+        label(for="gender") Gender:
+        select(id="gender", name="gender", required)
+          option(value="male") Male
+          option(value="female") Female
+          option(value="other") Other
+      .form-group
+        input(type="submit", value="Register")
