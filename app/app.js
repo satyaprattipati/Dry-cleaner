@@ -29,7 +29,8 @@ app.post('/login', async function (req, res) {
         const sql = 'SELECT * FROM Users WHERE username = ? AND password = ?';
         const [user] = await db.query(sql, [username, password]);
         if (user) {
-            res.send(`Welcome, ${username}!`);
+            res.render('customer-dashboard')
+            // res.send(`Welcome, ${username}!`);
         } else {
             res.status(401).send('Invalid username or password');
         }
@@ -42,6 +43,10 @@ app.post('/login', async function (req, res) {
 
 app.get('/register', function (req, res) {
     res.render('register');
+});
+
+app.get('/dashboard', function (req, res) {
+    res.render('customer-dashboard');
 });
 
 // Registration route
