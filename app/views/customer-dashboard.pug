@@ -29,3 +29,27 @@ html(lang="en")
       .header--wrapper
         .header--title
           h2 Dashboard
+      .tabular--wrapper
+        h3.main--title All records
+      .table-container
+        table
+          thead
+            tr
+              th ID
+              th Items
+              th Selected Date
+              th Selected Time
+              th Price
+          tbody
+            if results && results.length
+              each row in results
+                tr
+                  td= row.id
+                  td= row.items 
+                  td= row.selected_date
+                  td= row.selected_time
+                  td= row.price
+
+          tfoot
+            tr
+              td(colspan="7") Total: #{results.length} records

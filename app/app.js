@@ -45,9 +45,6 @@ app.get('/register', function (req, res) {
     res.render('register');
 });
 
-app.get('/dashboard', function (req, res) {
-    res.render('customer-dashboard');
-});
 
 // Registration route
 app.post('/register-page', async function (req, res) {
@@ -64,7 +61,14 @@ app.post('/register-page', async function (req, res) {
     }
 });
 
-
+app.get('/dashboard', async function (req, res) {
+    
+    const sql = 'SELECT * FROM laundary WHERE user_id = 1';;
+    db.query(sql).then(results => {
+        console.log(results);
+        res.render('customer-dashboard', { 'results': results })
+    });
+});
 
 // Start server on port 3000
 app.listen(3000,function(){
