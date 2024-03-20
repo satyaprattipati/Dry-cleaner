@@ -61,14 +61,34 @@ app.post('/register-page', async function (req, res) {
     }
 });
 
-app.get('/dashboard', async function (req, res) {
-    
-    const sql = 'SELECT * FROM laundary WHERE user_id = 1';;
-    db.query(sql).then(results => {
-        console.log(results);
-        res.render('customer-dashboard', { 'results': results })
-    });
+app.get("/dashboard", async function (req, res) {
+    try {
+        const sql1 = 'SELECT SUM(price) AS TotalpriceThisWeek FROM laundary WHERE WEEK(selected_date) = WEEK(CURDATE())';
+        const sql2 = 'SELECT SUM(price) AS TotalpriceThisMonth FROM laundary WHERE YEAR(selected_date) = YEAR(CURDATE()) AND MONTH(selected_date) = MONTH(CURDATE())';
+        const sql3 = 'SELECT SUM(price) AS TotalpriceThisYear FROM laundary WHERE YEAR(selected_date) = YEAR(CURDATE())';
+        const sql4 = 'SELECT SUM(price) AS Totalprice FROM laundary';
+        const sql5 = 'SELECT * FROM laundary WHERE user_id = 1';
+
+        const [results1, results2, results3, results4, results5] = await Promise.all([
+            db.query(sql1),
+            db.query(sql2),
+            db.query(sql3),
+            db.query(sql4),
+            db.query(sql5)
+        ]);
+
+        res.render("customer-dashboard", {
+            'results': results5,
+            'weekly': results1[0].TotalpriceThisWeek || 0,
+            'monthly': results2[0].TotalpriceThisMonth || 0,
+            'yearly' : results3[0].TotalpriceThisYear || 0,
+            'total': results4[0].Totalprice || 0
+        });
+    } catch (error) {
+        res.render("customer-dashboard");
+    }
 });
+
 
 // Start server on port 3000
 app.listen(3000,function(){

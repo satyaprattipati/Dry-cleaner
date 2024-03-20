@@ -29,6 +29,40 @@ html(lang="en")
       .header--wrapper
         .header--title
           h2 Dashboard
+      .card--container
+        h3.main--title Price Summary
+        .card--wrapper
+          // Week Card
+          .payment--card.light-red
+            .card--header
+              .amount
+                span.title Week
+                span.amount--value #{weekly} £
+              i.fas.fa-pound-sign.icon
+
+          // Month Card
+          .payment--card.light-purple
+            .card--header
+              .amount
+                span.title Month
+                span.amount--value #{monthly} £
+              i.fas.fa-pound-sign.icon.dark-purple
+
+          // Year Card
+          .payment--card.light-blue
+            .card--header
+              .amount
+                span.title Year
+                span.amount--value #{yearly} £
+              i.fas.fa-pound-sign.icon.dark-blue
+
+          // Total Hours Card
+          .payment--card.light-green
+            .card--header
+              .amount
+                span.title Total Hours
+                span.amount--value #{total} £
+              i.fas.fa-pound-sign.icon.dark-green
       .tabular--wrapper
         h3.main--title All records
       .table-container
@@ -50,6 +84,6 @@ html(lang="en")
                   td= row.selected_time
                   td= row.price
 
-          tfoot
-            tr
-              td(colspan="7") Total: #{results.length} records
+          //- tfoot
+          //-   tr
+          //-     td(colspan="7") Total: #{results.length} records
